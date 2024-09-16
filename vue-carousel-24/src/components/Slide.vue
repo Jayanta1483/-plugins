@@ -1,5 +1,5 @@
 <template>
-    <section class="carousel__item" v-show="isDisplay">
+    <section class="carousel__item" v-if="isDisplay">
         <img :src="props.url" class="carousel__img"  />
         <h3>{{ props.description }}</h3>
     </section>
