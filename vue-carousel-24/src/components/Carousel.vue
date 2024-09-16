@@ -16,11 +16,18 @@ const slides = [
 const displayIndex = ref<number>(0);
 const animationType = ref<string>();
 
-
+watch(displayIndex, (nw, ol) => {
+  if(nw > ol){
+    animationType.value = (nw === (slides.length - 1)) ? "rightSlide" : "leftSlide";
+  }
+  else{
+    animationType.value = (nw === 0) ? "leftSlide" : "rightSlide";
+  }
+})
 
 function slideNext(): void {
   if ((slides.length - 1) >= displayIndex.value) {
-    animationType.value = "leftSlide";
+    // animationType.value = "leftSlide";
     if (displayIndex.value === (slides.length - 1)) {
       displayIndex.value = 0;
       return;
@@ -31,7 +38,7 @@ function slideNext(): void {
 
 function slidePrevious(): void {
   if (0 <= displayIndex.value) {
-    animationType.value = "rightSlide";
+    // animationType.value = "rightSlide";
     if (displayIndex.value === 0) {
       displayIndex.value = (slides.length - 1);
       return;
@@ -41,7 +48,7 @@ function slidePrevious(): void {
 }
 
 function slideChange(e: number): void{
- animationType.value = (e > displayIndex.value) ? "leftSlide" : "rightSlide";
+//  animationType.value = (e > displayIndex.value) ? "leftSlide" : "rightSlide";
  displayIndex.value = e;
 }
 const numberOfSlides = computed((): number[] => {
@@ -137,7 +144,7 @@ const numberOfSlides = computed((): number[] => {
   animation: slide-out-right 0.9s;
 }
 
-/* @keyframes slide-out-left {
+@keyframes slide-out-left {
   from {
     left: 0;
   }
@@ -168,5 +175,5 @@ const numberOfSlides = computed((): number[] => {
   to {
     left: 0;
   }
-} */
+}
 </style>
