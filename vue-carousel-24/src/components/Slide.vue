@@ -1,0 +1,45 @@
+<template>
+    <section class="carousel__item">
+        <img :src="props.url" class="carousel__img"  />
+        <h3>{{ props.description }}</h3>
+    </section>
+</template>
+<script setup lang="ts">
+import { computed } from 'vue';
+type props = {url: string, description: string}
+const props = defineProps<props>();
+
+const description = computed(() => {
+    const desc = props.description;
+})
+</script>
+<style scoped>
+
+.carousel__item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition-duration: 0.8s;
+  transition-timing-function: ease-in-out;
+}
+h3 {
+  color: #faf9f9;
+  /* z-index: 100; */
+  position: absolute;
+  bottom: 25%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.carousel__img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+</style>
