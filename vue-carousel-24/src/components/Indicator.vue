@@ -1,9 +1,13 @@
 <template>
-<button :data-index="props.index" ></button>
+<button :data-index="props.index" :class="{active : props.isActive}" @click="emit('indicator', index)"></button>
 </template>
 <script setup lang="ts">
-type props = {index: number }
+type props = {index: number, isActive: boolean }
 const props = defineProps<props>();
+const { index } = props;
+const emit = defineEmits<{
+    indicator: [index: number]
+}>();
 </script>
 <style scoped>
  button {

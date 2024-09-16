@@ -4,30 +4,61 @@ import Indicator from './Indicator.vue';
 import summer from "../assets/images/summer.jpg";
 import rain from "../assets/images/rain.jpg"
 import jungle from "../assets/images/jungle.jpg"
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 
 
-
-  const slides = [
+ const slides = [
     {url: summer, text: 'First Screen'},
     {url: rain, text: 'Second Screen'},
     {url: jungle, text: 'Third Screen'},
   ];
 
-  const numberOfSlides = computed(() => {
+  const displayIndex = ref<number>(0);
+
+  function slideNext():void{
+    if((slides.length - 1) >= displayIndex.value){
+       if(displayIndex.value === (slides.length - 1)){
+        displayIndex.value = 0;
+        return;
+       }
+      displayIndex.value++;
+    }
+  }
+
+  function slidePrevious():void{
+    if(0 <= displayIndex.value){
+      if(displayIndex.value === 0){
+        displayIndex.value = (slides.length - 1);
+        return;
+       }
+      displayIndex.value--;
+    }
+  }
+
+  const numberOfSlides = computed((): number[] => {
     return slides.map((item, index) => index)
   })
 </script>
 
 <template>
    <div class="carousel" id="carousel-wrapper">
-            <span class="arrow arrow--left" id="prev"></span>
-            <span class="arrow arrow--right" id="next"></span>
+            <span class="arrow arrow--left" id="prev" @click="slidePrevious"></span>
+            <span class="arrow arrow--right" id="next" @click="slideNext"></span>
             <div class="carousel__inner">
-               <Slide v-for="(slide, index) in slides" :key="index" :url="slide.url" :description="slide.text"/>
+               <Slide v-for="(slide, index) in slides" 
+                 :key="index" 
+                 :url="slide.url" 
+                 :description="slide.text"
+                 :isDisplay="index === displayIndex"
+                 />
             </div>
             <div class="carousel__indicators">
-              <Indicator v-for="index in numberOfSlides" :key="index" :index="index"/>
+              <Indicator v-for="index in numberOfSlides" 
+              :isActive="index === displayIndex" 
+              :key="index" 
+              :index="index"
+              @indicator="(e) => displayIndex=e"
+              />
             </div>
         </div>
 </template>

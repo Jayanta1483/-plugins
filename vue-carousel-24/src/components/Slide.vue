@@ -1,12 +1,12 @@
 <template>
-    <section class="carousel__item">
+    <section class="carousel__item" v-show="isDisplay">
         <img :src="props.url" class="carousel__img"  />
         <h3>{{ props.description }}</h3>
     </section>
 </template>
 <script setup lang="ts">
 import { computed } from 'vue';
-type props = {url: string, description: string}
+type props = {url: string, description: string, isDisplay:boolean}
 const props = defineProps<props>();
 
 const description = computed(() => {
