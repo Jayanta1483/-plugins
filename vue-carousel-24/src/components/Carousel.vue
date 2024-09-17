@@ -4,7 +4,7 @@ import Indicator from './Indicator.vue';
 import { computed,  ref, watch } from 'vue';
 
 type propType = {
-  slides:  {url: string, text: string}[],
+  slides:  {url: string, text?: string}[],
   autoSlide?: boolean
 }
 const props = withDefaults(defineProps<propType>(), {

@@ -6,11 +6,8 @@ import jungle from "../src/assets/images/jungle.jpg";
 
 const slides = [
   { url: summer, text: 'First Screen' },
-  { url: rain, text: 'Second Screen' },
-  { url: jungle, text: 'Third Screen' },
-  { url: summer, text: 'Fourth Screen' },
-  { url: rain, text: 'Fifth Screen' },
-  { url: jungle, text: 'Sixth Screen' },
+  { url: rain },
+  { url: jungle, text: 'Third Screen' }
 ];
 </script>
 

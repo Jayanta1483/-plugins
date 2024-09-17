@@ -1,12 +1,12 @@
 <template>
     <section class="carousel__item" v-if="isDisplay">
         <img :src="props.url" class="carousel__img"  />
-        <h3>{{ props.description }}</h3>
+        <h3 v-show="props.description">{{ props.description }}</h3>
     </section>
 </template>
 <script setup lang="ts">
 
-type props = {url: string, description: string, isDisplay:boolean}
+type props = {url: string, description?: string, isDisplay:boolean}
 const props = defineProps<props>();
 
 </script>
