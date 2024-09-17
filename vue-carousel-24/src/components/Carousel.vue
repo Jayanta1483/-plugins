@@ -18,16 +18,15 @@ const animationType = ref<string>();
 
 watch(displayIndex, (nw, ol) => {
   if(nw > ol){
-    animationType.value = (nw === (slides.length - 1)) ? "rightSlide" : "leftSlide";
+    animationType.value = (nw == (slides.length - 1) && ol == 0) ? "rightSlide" : "leftSlide";
   }
   else{
-    animationType.value = (nw === 0) ? "leftSlide" : "rightSlide";
+    animationType.value = (nw == 0 && ol == (slides.length - 1)) ? "leftSlide" : "rightSlide";
   }
 })
 
 function slideNext(): void {
   if ((slides.length - 1) >= displayIndex.value) {
-    // animationType.value = "leftSlide";
     if (displayIndex.value === (slides.length - 1)) {
       displayIndex.value = 0;
       return;
@@ -38,7 +37,6 @@ function slideNext(): void {
 
 function slidePrevious(): void {
   if (0 <= displayIndex.value) {
-    // animationType.value = "rightSlide";
     if (displayIndex.value === 0) {
       displayIndex.value = (slides.length - 1);
       return;
@@ -48,7 +46,6 @@ function slidePrevious(): void {
 }
 
 function slideChange(e: number): void{
-//  animationType.value = (e > displayIndex.value) ? "leftSlide" : "rightSlide";
  displayIndex.value = e;
 }
 const numberOfSlides = computed((): number[] => {
