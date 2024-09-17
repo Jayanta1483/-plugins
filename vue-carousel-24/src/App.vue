@@ -13,7 +13,10 @@ const slides = [
 
 <template>
   <section class="container">
-    <Carousel :slides="slides" />
+    <Carousel 
+    :slides="slides" 
+    :autoSlide="true"
+    />
   </section>
 </template>
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Slide from './Slide.vue';
 import Indicator from './Indicator.vue';
-import { computed,  ref, watch } from 'vue';
+import { computed,  onMounted,  ref, watch } from 'vue';
 
 type propType = {
   slides:  {url: string, text?: string}[],
@@ -10,6 +10,28 @@ type propType = {
 const props = withDefaults(defineProps<propType>(), {
   autoSlide: false
 });
+
+const autoSlide = ref<number | undefined>();
+
+onMounted(() => {
+  if(props.autoSlide){
+    autoSlide.value = setInterval(() => {
+      slideNext()
+    }, 3000);
+  }
+  const carouselInnerEle: (null | HTMLElement) = document.querySelector("#carouselInner");
+  carouselInnerEle?.addEventListener('mouseover', function(){
+    console.log("timer delete")
+     clearInterval(autoSlide.value)
+  })
+
+  carouselInnerEle?.addEventListener('mouseleave', function(){
+    console.log("timer started")
+    autoSlide.value = setInterval(() => {
+      slideNext()
+    }, 3000);
+  })
+})
 
 
 const slides = computed(() => {
@@ -34,13 +56,6 @@ watch(displayIndex, (nw, ol) => {
   }
 });
 
-watch(() => props.autoSlide, (nw, ol) => {
-  if(nw == true && ol == false){
-    setInterval(() => {
-      slideNext()
-    }, 3000);
-  }
-})
 
 function slideNext(): void {
   if ((slides.value.length - 1) >= displayIndex.value) {
@@ -71,7 +86,7 @@ const numberOfSlides = computed((): number[] => {
   <div class="carousel" id="carousel-wrapper">
     <span class="arrow arrow--left" id="prev" @click="slidePrevious"></span>
     <span class="arrow arrow--right" id="next" @click="slideNext"></span>
-    <div class="carousel__inner">
+    <div class="carousel__inner" id="carouselInner">
       <TransitionGroup :name="animationType">
         <Slide v-for="(slide, index) in slides" :key="index" :url="slide.url" :description="slide.text"
           :isDisplay="index === displayIndex" />
