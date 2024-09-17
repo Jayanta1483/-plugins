@@ -42,9 +42,6 @@ function slidePrevious(): void {
   }
 }
 
-function slideChange(e: number): void{
- displayIndex.value = e;
-}
 const numberOfSlides = computed((): number[] => {
   return slides.map((item, index) => index)
 })
@@ -62,7 +59,7 @@ const numberOfSlides = computed((): number[] => {
     </div>
     <div class="carousel__indicators">
       <Indicator v-for="index in numberOfSlides" :isActive="index === displayIndex" :key="index" :index="index"
-        @indicator="slideChange" />
+        @indicator="(e) => displayIndex = e" />
     </div>
   </div>
 </template>
