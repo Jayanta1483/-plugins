@@ -1,13 +1,26 @@
 <template>
     <section class="carousel__item" v-if="isDisplay">
         <img :src="props.url" class="carousel__img"  />
-        <h3 v-show="props.description">{{ props.description }}</h3>
+        <h3 v-show="description">{{ description }}</h3>
     </section>
 </template>
 <script setup lang="ts">
+import { computed } from 'vue';
+
 
 type props = {url: string, description?: string, isDisplay:boolean}
 const props = defineProps<props>();
+
+const description = computed(() => {
+  return (function(str: string | undefined): string | undefined{
+    if(!props.description) return;
+    const maxLength = 35;
+    if (str.length > maxLength) {
+    return str.slice(0, maxLength) + '...';
+  }
+  return str;
+  })(props.description)
+})
 
 </script>
 <style scoped>
