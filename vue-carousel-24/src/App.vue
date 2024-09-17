@@ -8,6 +8,9 @@ const slides = [
   { url: summer, text: 'First Screen' },
   { url: rain, text: 'Second Screen' },
   { url: jungle, text: 'Third Screen' },
+  { url: summer, text: 'Fourth Screen' },
+  { url: rain, text: 'Fifth Screen' },
+  { url: jungle, text: 'Sixth Screen' },
 ];
 </script>
 

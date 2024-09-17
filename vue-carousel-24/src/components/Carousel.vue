@@ -15,7 +15,8 @@ const props = withDefaults(defineProps<propType>(), {
 
 const slides = computed(() => {
   if(props.slides.length > 5){
-    return props.slides.filter((item, index, arr) => !arr[props.slides.length - 1] )
+    console.warn("Options array length exceeds 5, only first 5 options will be considered.");
+    return props.slides.slice(0, 5)
   }
   else{
     return props.slides;
