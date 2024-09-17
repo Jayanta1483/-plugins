@@ -5,13 +5,10 @@
     </section>
 </template>
 <script setup lang="ts">
-import { computed } from 'vue';
+
 type props = {url: string, description: string, isDisplay:boolean}
 const props = defineProps<props>();
 
-const description = computed(() => {
-    const desc = props.description;
-})
 </script>
 <style scoped>
 

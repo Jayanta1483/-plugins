@@ -1,30 +1,50 @@
 <script setup lang="ts">
 import Slide from './Slide.vue';
 import Indicator from './Indicator.vue';
-import { computed, ref, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 
 type propType = {
-  slides:  {url: string, text: string}[]
+  slides:  {url: string, text: string}[],
+  autoSlide?: boolean
 }
-const props = defineProps<propType>();
+const props = withDefaults(defineProps<propType>(), {
+  autoSlide: false
+});
 
-const {slides} = props
+
+
+const slides = computed(() => {
+  if(props.slides.length > 5){
+    return props.slides.filter((item, index, arr) => !arr[props.slides.length - 1] )
+  }
+  else{
+    return props.slides;
+  }
+})
 
 const displayIndex = ref<number>(0);
 const animationType = ref<string>();
 
 watch(displayIndex, (nw, ol) => {
   if(nw > ol){
-    animationType.value = (nw == (slides.length - 1) && ol == 0) ? "rightSlide" : "leftSlide";
+    animationType.value = (nw == (slides.value.length - 1) && ol == 0) ? "rightSlide" : "leftSlide";
   }
   else{
-    animationType.value = (nw == 0 && ol == (slides.length - 1)) ? "leftSlide" : "rightSlide";
+    animationType.value = (nw == 0 && ol == (slides.value.length - 1)) ? "leftSlide" : "rightSlide";
+  }
+});
+
+watch(() => props.autoSlide, (nw, ol) => {
+  if(nw == true && ol == false){
+    setInterval(() => {
+      slideNext()
+    }, 3000);
   }
 })
 
 function slideNext(): void {
-  if ((slides.length - 1) >= displayIndex.value) {
-    if (displayIndex.value === (slides.length - 1)) {
+  if ((slides.value.length - 1) >= displayIndex.value) {
+    if (displayIndex.value === (slides.value.length - 1)) {
       displayIndex.value = 0;
       return;
     }
@@ -35,7 +55,7 @@ function slideNext(): void {
 function slidePrevious(): void {
   if (0 <= displayIndex.value) {
     if (displayIndex.value === 0) {
-      displayIndex.value = (slides.length - 1);
+      displayIndex.value = (slides.value.length - 1);
       return;
     }
     displayIndex.value--;
@@ -43,7 +63,7 @@ function slidePrevious(): void {
 }
 
 const numberOfSlides = computed((): number[] => {
-  return slides.map((item, index) => index)
+  return slides.value.map((item, index) => index)
 })
 </script>
 
@@ -115,7 +135,7 @@ const numberOfSlides = computed((): number[] => {
   transform: translate(-50%);
 }
 
-.carousel__indicators button.active {
+.carousel__indicators span.active {
   opacity: 1;
 }
 

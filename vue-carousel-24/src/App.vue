@@ -1,5 +1,4 @@
 <script setup lang="ts">
-// import HelloWorld from './components/HelloWorld.vue'
 import Carousel from './components/Carousel.vue';
 import summer from "../src/assets/images/summer.jpg";
 import rain from "../src/assets/images/rain.jpg";
@@ -14,7 +13,7 @@ const slides = [
 
 <template>
   <section class="container">
-    <Carousel :slides="slides"/>
+    <Carousel :slides="slides" />
   </section>
 </template>
 
@@ -25,7 +24,7 @@ const slides = [
   box-sizing: border-box;
 }
 
-:root {
+/* :root {
   font-size: 62.5%;
 }
 
@@ -33,7 +32,7 @@ body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
   font-size: 1.6rem;
-}
+} */
 
 h1,
 h2,
