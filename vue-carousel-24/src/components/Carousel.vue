@@ -12,7 +12,6 @@ const props = withDefaults(defineProps<propType>(), {
 });
 
 
-
 const slides = computed(() => {
   if(props.slides.length > 5){
     console.warn("Options array length exceeds 5, only first 5 options will be considered.");
