@@ -1,17 +1,14 @@
 <script setup lang="ts">
 import Slide from './Slide.vue';
 import Indicator from './Indicator.vue';
-import summer from "../assets/images/summer.jpg";
-import rain from "../assets/images/rain.jpg"
-import jungle from "../assets/images/jungle.jpg"
 import { computed, ref, watch } from 'vue';
 
+type propType = {
+  slides:  {url: string, text: string}[]
+}
+const props = defineProps<propType>();
 
-const slides = [
-  { url: summer, text: 'First Screen' },
-  { url: rain, text: 'Second Screen' },
-  { url: jungle, text: 'Third Screen' },
-];
+const {slides} = props
 
 const displayIndex = ref<number>(0);
 const animationType = ref<string>();

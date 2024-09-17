@@ -1,11 +1,20 @@
 <script setup lang="ts">
 // import HelloWorld from './components/HelloWorld.vue'
 import Carousel from './components/Carousel.vue';
+import summer from "../src/assets/images/summer.jpg";
+import rain from "../src/assets/images/rain.jpg";
+import jungle from "../src/assets/images/jungle.jpg";
+
+const slides = [
+  { url: summer, text: 'First Screen' },
+  { url: rain, text: 'Second Screen' },
+  { url: jungle, text: 'Third Screen' },
+];
 </script>
 
 <template>
   <section class="container">
-    <Carousel />
+    <Carousel :slides="slides"/>
   </section>
 </template>
 
