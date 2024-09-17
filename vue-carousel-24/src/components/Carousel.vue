@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Slide from './Slide.vue';
 import Indicator from './Indicator.vue';
-import { computed, onMounted, ref, watch } from 'vue';
+import { computed,  ref, watch } from 'vue';
 
 type propType = {
   slides:  {url: string, text: string}[],
@@ -64,7 +64,7 @@ function slidePrevious(): void {
 }
 
 const numberOfSlides = computed((): number[] => {
-  return slides.value.map((item, index) => index)
+  return slides.value.map(item => slides.value.indexOf(item))
 })
 </script>
 
