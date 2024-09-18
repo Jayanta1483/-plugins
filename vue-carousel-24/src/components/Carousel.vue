@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Slide from './Slide.vue';
 import Indicator from './Indicator.vue';
-import { computed,  onMounted,  ref, watch } from 'vue';
+import { computed,  onMounted,  onUnmounted,  ref, watch } from 'vue';
 import { startTimer, stopTimer} from "../utils/timer";
 import { LEFT_SLIDE, OPTION_EXCEED, RIGHT_SLIDE } from '../utils/enums';
 
@@ -47,6 +47,14 @@ onMounted(() => {
   })
 })
 
+onUnmounted(() => {
+  const carouselWrapperEle: (null | HTMLElement) = document.querySelector("#carousel-wrapper");
+
+  carouselWrapperEle?.removeEventListener("mouseover", stopTimer);
+  carouselWrapperEle?.removeEventListener("mouseleave", function(){
+    startTimer(slideNext)
+  });
+})
 
 
 const displayIndex = ref<number>(0);
