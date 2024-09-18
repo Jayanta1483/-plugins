@@ -17,6 +17,22 @@ const props = withDefaults(defineProps<propType>(), {
 
 
 
+const slides = computed((): {url: string, text?: string}[] => {
+  if(props.slides.length > 5){
+    console.warn(OPTION_EXCEED);
+    return props.slides.slice(0, 5)
+  }
+  else{
+    return props.slides;
+  }
+})
+
+
+const numberOfSlides = computed((): number[] => {
+  return slides.value.map(item => slides.value.indexOf(item))
+})
+
+
 
 onMounted(() => {
   if(props.autoSlide){
@@ -32,15 +48,6 @@ onMounted(() => {
 })
 
 
-const slides = computed(() => {
-  if(props.slides.length > 5){
-    console.warn(OPTION_EXCEED);
-    return props.slides.slice(0, 5)
-  }
-  else{
-    return props.slides;
-  }
-})
 
 const displayIndex = ref<number>(0);
 const animationType = ref<string>();
@@ -76,9 +83,6 @@ function slidePrevious(): void {
   }
 }
 
-const numberOfSlides = computed((): number[] => {
-  return slides.value.map(item => slides.value.indexOf(item))
-})
 </script>
 
 <template>

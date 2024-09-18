@@ -11,7 +11,7 @@ import { computed } from 'vue';
 type props = {url: string, description?: string, isDisplay:boolean}
 const props = defineProps<props>();
 
-const description = computed(() => {
+const description = computed((): string | undefined => {
   return (function(str: string | undefined): string | undefined{
     if(!props.description) return;
     const maxLength = 35;
