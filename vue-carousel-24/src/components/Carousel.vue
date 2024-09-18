@@ -2,6 +2,10 @@
 import Slide from './Slide.vue';
 import Indicator from './Indicator.vue';
 import { computed,  onMounted,  ref, watch } from 'vue';
+import { startTimer, stopTimer} from "../utils/timer";
+import { LEFT_SLIDE, OPTION_EXCEED, RIGHT_SLIDE } from '../utils/enums';
+
+
 
 type propType = {
   slides:  {url: string, text?: string}[],
@@ -11,32 +15,26 @@ const props = withDefaults(defineProps<propType>(), {
   autoSlide: false
 });
 
-const autoSlide = ref<number | undefined>();
+
+
 
 onMounted(() => {
   if(props.autoSlide){
-    autoSlide.value = setInterval(() => {
-      slideNext()
-    }, 3000);
+    startTimer(slideNext)
   }
-  const carouselInnerEle: (null | HTMLElement) = document.querySelector("#carouselInner");
-  carouselInnerEle?.addEventListener('mouseover', function(){
-    console.log("timer delete")
-     clearInterval(autoSlide.value)
-  })
+  const carouselWrapperEle: (null | HTMLElement) = document.querySelector("#carousel-wrapper");
 
-  carouselInnerEle?.addEventListener('mouseleave', function(){
-    console.log("timer started")
-    autoSlide.value = setInterval(() => {
-      slideNext()
-    }, 3000);
+  carouselWrapperEle?.addEventListener('mouseover', stopTimer);
+
+  carouselWrapperEle?.addEventListener('mouseleave', function(){
+    startTimer(slideNext)
   })
 })
 
 
 const slides = computed(() => {
   if(props.slides.length > 5){
-    console.warn("Options array length exceeds 5, only first 5 options will be considered.");
+    console.warn(OPTION_EXCEED);
     return props.slides.slice(0, 5)
   }
   else{
@@ -49,12 +47,13 @@ const animationType = ref<string>();
 
 watch(displayIndex, (nw, ol) => {
   if(nw > ol){
-    animationType.value = (nw == (slides.value.length - 1) && ol == 0) ? "rightSlide" : "leftSlide";
+    animationType.value = (nw == (slides.value.length - 1) && ol == 0) ? RIGHT_SLIDE : LEFT_SLIDE;
   }
   else{
-    animationType.value = (nw == 0 && ol == (slides.value.length - 1)) ? "leftSlide" : "rightSlide";
+    animationType.value = (nw == 0 && ol == (slides.value.length - 1)) ? LEFT_SLIDE : RIGHT_SLIDE;
   }
 });
+
 
 
 function slideNext(): void {
@@ -86,7 +85,7 @@ const numberOfSlides = computed((): number[] => {
   <div class="carousel" id="carousel-wrapper">
     <span class="arrow arrow--left" id="prev" @click="slidePrevious"></span>
     <span class="arrow arrow--right" id="next" @click="slideNext"></span>
-    <div class="carousel__inner" id="carouselInner">
+    <div class="carousel__inner" id="carouselInner" >
       <TransitionGroup :name="animationType">
         <Slide v-for="(slide, index) in slides" :key="index" :url="slide.url" :description="slide.text"
           :isDisplay="index === displayIndex" />
