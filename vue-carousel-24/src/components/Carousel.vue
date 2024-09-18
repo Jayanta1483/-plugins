@@ -4,6 +4,8 @@ import Indicator from './Indicator.vue';
 import { computed,  onMounted,  onUnmounted,  ref, watch } from 'vue';
 import { startTimer, stopTimer} from "../utils/timer";
 import { LEFT_SLIDE, OPTION_EXCEED, RIGHT_SLIDE } from '../utils/enums';
+import _ from "lodash";
+
 
 
 
@@ -71,7 +73,7 @@ watch(displayIndex, (nw, ol) => {
 
 
 
-function slideNext(): void {
+const slideNext = _.throttle(function(): void {
   if ((slides.value.length - 1) >= displayIndex.value) {
     if (displayIndex.value === (slides.value.length - 1)) {
       displayIndex.value = 0;
@@ -79,9 +81,9 @@ function slideNext(): void {
     }
     displayIndex.value++;
   }
-}
+}, 900)
 
-function slidePrevious(): void {
+const slidePrevious = _.throttle(function(): void {
   if (0 <= displayIndex.value) {
     if (displayIndex.value === 0) {
       displayIndex.value = (slides.value.length - 1);
@@ -89,7 +91,7 @@ function slidePrevious(): void {
     }
     displayIndex.value--;
   }
-}
+}, 900)
 
 </script>
 
