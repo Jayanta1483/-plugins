@@ -1,0 +1,9 @@
+.vscode
+node_modules
+public
+src
+
+
+
+index.html
+package-lock.json
