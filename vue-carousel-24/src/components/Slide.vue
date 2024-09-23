@@ -38,7 +38,7 @@ h3 {
   color: #faf9f9;
   /* z-index: 100; */
   position: absolute;
-  bottom: 25%;
+  bottom: 20%;
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
