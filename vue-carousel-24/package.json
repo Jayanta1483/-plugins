@@ -1,7 +1,7 @@
 {
   "name": "vue-carousel-24",
   "description": "It is a Vue Carousel Plugin.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "keywords":["carousel", "slider", "image slider", "frontend", "vue", "javascirpt", "typescript"],
   "type": "module",
   "files": [
