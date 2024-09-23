@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [vue()],
   build: {
     lib: {
-      entry: resolve(_dirname, "src/index.ts"),
+      entry: resolve(__dirname, "src/index.ts"),
       name: "VueCarousel24",
       fileName: "vue-carousel-24"
     },
