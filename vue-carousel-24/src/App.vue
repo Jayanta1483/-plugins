@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import Carousel from './components/Carousel.vue';
-import summer from "../src/assets/images/summer.jpg";
-import rain from "../src/assets/images/rain.jpg";
-import jungle from "../src/assets/images/jungle.jpg";
+// import Carousel from './components/Carousel.vue';
+// import summer from "../src/assets/images/summer.jpg";
+// import rain from "../src/assets/images/rain.jpg";
+// import jungle from "../src/assets/images/jungle.jpg";
 
-const slides = [
-  { url: summer, text: 'First Screen' },
-  { url: rain, text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book." },
-  { url: jungle, text: 'Third Screen' }
-];
+// const slides = [
+//   { url: summer, text: 'First Screen' },
+//   { url: rain, text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book." },
+//   { url: jungle, text: 'Third Screen' }
+// ];
 </script>
 
 <template>
   <section class="container">
-    <Carousel 
+    <!-- <Carousel 
     :slides="slides" 
     :autoSlide="true"
-    />
+    /> -->
   </section>
 </template>
 
